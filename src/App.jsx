@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 import {
   Account,
   Bookings,
@@ -11,10 +14,20 @@ import {
 } from "./pages";
 import AppLayout from "./ui/AppLayout";
 import GlobalStyles from "./styles/GlobalStyles";
+
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+      },
+    },
+  });
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyles />
+      <ReactQueryDevtools initialIsOpen={true} />
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
@@ -33,7 +46,7 @@ function App() {
           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
