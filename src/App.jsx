@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Toaster } from "react-hot-toast";
 
 import {
   Account,
@@ -28,6 +29,17 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <ReactQueryDevtools initialIsOpen={true} />
+      <Toaster
+        position="top-center"
+        gutter={12}
+        toastOptions={{
+          style: {
+            padding: "16px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>

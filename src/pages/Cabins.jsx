@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import CabinTable from "../features/cabins/CabinTable";
-import { getCabins } from "../services/apiCabins";
 function Cabins() {
   return (
     <>
