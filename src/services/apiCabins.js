@@ -15,18 +15,26 @@ export async function deleteCabin(id) {
     throw new Error("Cabins could deleted");
   }
 }
-export async function createCabin(newCabin) {
+export async function createEditCabin(newCabin, id) {
   console.log(newCabin);
+  const hasImage = newCabin?.image?.startsWith?.(
+    import.meta.env.VITE_SUPABASE_URL
+  );
   const imageName = `${crypto.randomUUID()}-${newCabin.image.name}`.replaceAll(
     "/",
     ""
   );
-  const imagePath = `${
-    import.meta.env.VITE_SUPABASE_URL
-  }/storage/v1/object/public/cabin-images/${imageName}`;
-  const { data, error } = await supabase
-    .from("cabins")
-    .insert({ ...newCabin, image: imagePath });
+  const imagePath = hasImage
+    ? newCabin.image
+    : `${
+        import.meta.env.VITE_SUPABASE_URL
+      }/storage/v1/object/public/cabin-images/${imageName}`;
+  let query = supabase.from("cabins");
+
+  // create if this not edit session
+  if (!id) query = query.insert({ ...newCabin, image: imagePath });
+  if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
+  const { data, error } = await query.select().single();
   if (error) {
     console.error(error);
     throw new Error("Cabins could deleted");
@@ -43,3 +51,4 @@ export async function createCabin(newCabin) {
     );
   }
 }
+//editlerken disable et
