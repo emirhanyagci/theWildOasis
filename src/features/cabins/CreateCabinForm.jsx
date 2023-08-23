@@ -23,15 +23,18 @@ function CreateCabinForm() {
     onSuccess: () => {
       queryClient.invalidateQueries(["cabins"]);
       toast.success("Successfully added new cabin");
-      reset();
+      // reset();
     },
     onError: (error) => {
       toast.success(error.message);
     },
   });
-
+  function onSubmit(data) {
+    console.log(data.image);
+    mutate({ ...data, image: data.image[0] });
+  }
   return (
-    <Form onSubmit={handleSubmit(mutate)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -74,7 +77,7 @@ function CreateCabinForm() {
           {...register("discount", {
             required: "This field is required",
             max: {
-              value: getValues().regularPrice,
+              value: Number(getValues().regularPrice),
               message: "Discount should be less than regular price",
             },
           })}
@@ -94,7 +97,12 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow label="Cabin photo">
-        <FileInput id="image" disabled={isCreating} accept="image/*" />
+        <FileInput
+          id="image"
+          disabled={isCreating}
+          accept="image/*"
+          {...register("image", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow>

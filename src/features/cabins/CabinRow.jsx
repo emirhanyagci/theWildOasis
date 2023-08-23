@@ -47,7 +47,7 @@ function CabinRow({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
       toast.success("Successfully deleted");
