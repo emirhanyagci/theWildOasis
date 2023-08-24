@@ -72,7 +72,7 @@ function CabinRow({ cabin }) {
           {discount ? formatCurrency(discount) : <span>-</span>}
         </Discount>
         <div>
-          <button onClick={duplicateCabinHandler}>
+          <button disabled={isCreating} onClick={duplicateCabinHandler}>
             <HiSquare2Stack />
           </button>
           <button
@@ -83,6 +83,7 @@ function CabinRow({ cabin }) {
             <HiPencil />
           </button>
           <button
+            disabled={isDeleting}
             onClick={() => {
               deleteCabin(id);
             }}
