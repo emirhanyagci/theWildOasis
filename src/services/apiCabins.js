@@ -16,10 +16,11 @@ export async function deleteCabin(id) {
   }
 }
 export async function createEditCabin(newCabin, id) {
-  console.log(newCabin);
+  // check image is already setted
   const hasImage = newCabin?.image?.startsWith?.(
     import.meta.env.VITE_SUPABASE_URL
   );
+  console.log(newCabin);
   const imageName = `${crypto.randomUUID()}-${newCabin.image.name}`.replaceAll(
     "/",
     ""
@@ -35,10 +36,12 @@ export async function createEditCabin(newCabin, id) {
   if (!id) query = query.insert({ ...newCabin, image: imagePath });
   if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
   const { data, error } = await query.select().single();
+
   if (error) {
     console.error(error);
     throw new Error("Cabins could deleted");
   }
+  if (hasImage) return data;
   const { error: uploadError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);
@@ -50,5 +53,6 @@ export async function createEditCabin(newCabin, id) {
       "Cabins image could not be uploaded and cabin was not created"
     );
   }
+  return data;
 }
 //editlerken disable et

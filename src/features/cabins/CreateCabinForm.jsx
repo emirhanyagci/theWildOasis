@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useCreateCabin } from "./useCreateCabin.js";
+import { useEditCabin } from "./useEditCabin.js";
+
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { useMutation, useQueryClient } from "react-query";
-import { createEditCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
@@ -21,39 +21,22 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
-  const queryClient = useQueryClient();
-  const { isLoading: isCreating, mutate: createCabin } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["cabins"]);
-      toast.success("Successfully added new cabin");
-      reset();
-    },
-    onError: (error) => {
-      toast.success(error.message);
-    },
-  });
-  const { isLoading: isEditing, mutate: editCabin } = useMutation({
-    mutationFn: ({ newCabinData, id }) => {
-      console.log(newCabinData);
-      createEditCabin(newCabinData, id);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["cabins"]);
-      toast.success("Successfully added new cabin");
+  const { isCreating, createCabin } = useCreateCabin(reset);
+  const { isEditing, editCabin } = useEditCabin(reset);
 
-      reset();
-    },
-    onError: (error) => {
-      toast.success(error.message);
-    },
-  });
   const isWorking = isCreating || isEditing;
+
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
     if (isEditSession)
       editCabin({ newCabinData: { ...data, image }, id: editId });
-    else createCabin({ ...data, image: data.image[0] });
+    else
+      createCabin(
+        { ...data, image: data.image[0] },
+        {
+          onSuccess: () => reset(),
+        }
+      );
   }
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -132,7 +115,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button variation="secondary" type="reset" disabled={isCreating}>
-          Cancel
+          {isEditSession ? "Reset" : "Cancel"}
         </Button>
         <Button disabled={isCreating}>
           {isEditSession ? "Edit Cabin" : "Create new cabin"}
