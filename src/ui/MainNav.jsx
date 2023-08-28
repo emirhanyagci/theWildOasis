@@ -6,7 +6,7 @@ import {
   HiOutlineUsers,
   HiOutlineCog6Tooth,
   HiOutlineHomeModern,
-} from "react-icons/Hi2";
+} from "react-icons/hi2";
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
