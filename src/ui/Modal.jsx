@@ -1,15 +1,8 @@
-import {
-  useEffect,
-  cloneElement,
-  createContext,
-  useContext,
-  useState,
-  useRef,
-} from "react";
+import { cloneElement, createContext, useContext, useState } from "react";
 import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import useOutsideClick from "../hooks/useOutsideClick.js";
+import { useOutsideClick } from "../hooks/useOutsideClick.js";
 const StyledModal = styled.div`
   position: fixed;
   top: 50%;
@@ -91,7 +84,6 @@ function Open({ children, open: opensWindowName }) {
 }
 function Window({ children, name }) {
   const { modalName, closeModal } = useContext(ModalContext);
-
   const ref = useOutsideClick(closeModal);
 
   if (modalName !== name) return null;

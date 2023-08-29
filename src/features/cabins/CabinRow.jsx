@@ -45,7 +45,6 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  console.log(cabin);
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
   const [showForm, setShowForm] = useState(false);
