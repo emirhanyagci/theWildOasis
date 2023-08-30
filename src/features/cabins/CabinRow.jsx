@@ -6,6 +6,7 @@ import CreateCabinForm from "./CreateCabinForm";
 import { HiTrash, HiPencil, HiSquare2Stack } from "react-icons/hi2";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
 // const TableRow = styled.div`
 //   display: grid;
 //   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -98,6 +99,14 @@ function CabinRow({ cabin }) {
             />
           </Modal.Window>
         </Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={id}></Menus.Toggle>
+          <Menus.List id={id}>
+            <Menus.Button>Duplicate</Menus.Button>
+            <Menus.Button>Edit</Menus.Button>
+            <Menus.Button>Delete</Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
       </div>
     </>
   );
