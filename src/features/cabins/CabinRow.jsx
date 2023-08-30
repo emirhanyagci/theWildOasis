@@ -71,42 +71,37 @@ function CabinRow({ cabin }) {
         {discount ? formatCurrency(discount) : <span>-</span>}
       </Discount>
       <div>
-        <button disabled={isCreating} onClick={duplicateCabinHandler}>
-          <HiSquare2Stack />
-        </button>
-
         <Modal>
-          <Modal.Open open="edit">
-            <button>
-              <HiPencil />
-            </button>
-          </Modal.Open>
-          <Modal.Open open="delete">
-            <button disabled={isDeleting}>
-              <HiTrash />
-            </button>
-          </Modal.Open>
-          <Modal.Window name="edit">
-            <CreateCabinForm cabinToEdit={cabin} />
-          </Modal.Window>
-          <Modal.Window name="delete">
-            <ConfirmDelete
-              onConfirm={() => {
-                deleteCabin(id);
-              }}
-              resourceName="cabins"
-              disabled={isDeleting}
-            />
-          </Modal.Window>
+          <Menus.Menu>
+            <Menus.Toggle id={id}></Menus.Toggle>
+            <Menus.List id={id}>
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                onClick={duplicateCabinHandler}
+              >
+                Duplicate
+              </Menus.Button>
+              <Modal.Open open="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+              <Modal.Open open="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+            <Modal.Window name="edit">
+              <CreateCabinForm cabinToEdit={cabin} />
+            </Modal.Window>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                onConfirm={() => {
+                  deleteCabin(id);
+                }}
+                resourceName="cabins"
+                disabled={isDeleting}
+              />
+            </Modal.Window>
+          </Menus.Menu>
         </Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={id}></Menus.Toggle>
-          <Menus.List id={id}>
-            <Menus.Button>Duplicate</Menus.Button>
-            <Menus.Button>Edit</Menus.Button>
-            <Menus.Button>Delete</Menus.Button>
-          </Menus.List>
-        </Menus.Menu>
       </div>
     </>
   );
