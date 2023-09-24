@@ -37,7 +37,7 @@ const FilterButton = styled.button`
 
 export default function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get("discount") || options[0];
+  const currentFilter = searchParams.get(filterField) || options[0];
   function clickHandler(type) {
     searchParams.set(filterField, type);
     setSearchParams(searchParams);
