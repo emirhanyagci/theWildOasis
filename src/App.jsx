@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import AppLayout from "./ui/AppLayout";
 import GlobalStyles from "./styles/GlobalStyles";
+import Booking from "./pages/Booking";
 
 function App() {
   const queryClient = new QueryClient({
@@ -49,6 +50,8 @@ function App() {
             ></Route>
             <Route path="dashboard" element={<Dashboard />}></Route>
             <Route path="Bookings" element={<Bookings />}></Route>
+            <Route path="bookings/:id" element={<Booking />}></Route>
+
             <Route path="Cabins" element={<Cabins />}></Route>
             <Route path="Users" element={<Users />}></Route>
             <Route path="Settings" element={<Settings />}></Route>
