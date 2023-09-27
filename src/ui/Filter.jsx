@@ -39,6 +39,7 @@ export default function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options[0];
   function clickHandler(type) {
+    searchParams.set("page", 1);
     searchParams.set(filterField, type);
     setSearchParams(searchParams);
   }
