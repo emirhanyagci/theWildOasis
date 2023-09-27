@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
 export function useDeleteCabin() {
   const queryClient = useQueryClient();
-
   const { isDeleting, mutate: deleteCabin } = useMutation({
     mutationFn: deleteCabinApi,
     onSuccess: () => {
