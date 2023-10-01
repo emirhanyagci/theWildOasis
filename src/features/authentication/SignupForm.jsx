@@ -74,7 +74,7 @@ function SignupForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Create new user (test ssh)</Button>
+        <Button>Create new user</Button>
       </FormRow>
     </Form>
   );
