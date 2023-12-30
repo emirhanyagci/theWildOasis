@@ -6,8 +6,8 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 function LoginForm() {
-  const [email, setEmail] = useState("emirhan.yacis@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("testuser@gmail.com");
+  const [password, setPassword] = useState("123456789");
   const { login, isLoading } = useLogin();
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,7 +25,7 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+      <FormRowVertical label="Email address (testuser@gmail.com)">
         <Input
           type="email"
           id="email"
@@ -36,7 +36,7 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRowVertical>
-      <FormRowVertical label="Password">
+      <FormRowVertical label="Password (123456789)">
         <Input
           type="password"
           id="password"
