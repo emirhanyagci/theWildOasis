@@ -82,9 +82,10 @@ function Menus({ children }) {
 function Toggle({ id }) {
   const { openId, closeMenus, openMenus, setPosition } =
     useContext(MenusContext);
-
   function clickHandler(e) {
-    console.log(openId);
+    e.stopPropagation();
+    console.log("click");
+
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.left - rect.width,
@@ -100,7 +101,7 @@ function Toggle({ id }) {
 }
 function List({ id, children }) {
   const { openId, position, closeMenus } = useContext(MenusContext);
-  const ref = useOutsideClick(closeMenus);
+  const ref = useOutsideClick(closeMenus, false);
   if (openId !== id) return null;
   return createPortal(
     <StyledList position={position} ref={ref}>

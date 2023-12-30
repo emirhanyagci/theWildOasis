@@ -15,7 +15,6 @@ import {
   Users,
 } from "./pages";
 import AppLayout from "./ui/AppLayout";
-import GlobalStyles from "./styles/GlobalStyles";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
@@ -32,7 +31,6 @@ function App() {
   return (
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
-        <GlobalStyles />
         <ReactQueryDevtools initialIsOpen={true} />
         <Toaster
           position="top-center"
