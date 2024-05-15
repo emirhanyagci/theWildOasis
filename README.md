@@ -24,8 +24,8 @@ This project, developed with React and Supabase, provides a system where employe
 
 * **React:** JavaScript library used to create the user interface.
 * **Supabase:** backend services (database, authentication).
-* **Tailwind:** backend services (database, authentication).
-* **Supabase:** backend services (database, authentication).
+* **Tailwind:** UI
+* **React Query:** Query Management.
 ## Installation Guide
 
 - Clone project
