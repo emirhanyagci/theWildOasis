@@ -46,5 +46,5 @@ This project, developed with React and Supabase, provides a system where employe
     # or with yarn
     $ yarn dev
 ```
- 
+- Do not forget upload all data from side bar!
  
